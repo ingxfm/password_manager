@@ -15,21 +15,19 @@ def find_password():
     try:
         with open("data.json", "r") as read_file:
             data = json.load(read_file)
-        username_data = data[account]["email"]
-        password_data = data[account]["password"]
     except FileNotFoundError:
         messagebox.showwarning(title="File Not Found Error",
                                message="No accounts saved.")
-    except KeyError:
-        messagebox.showwarning(title="No Data Found",
-                               message="No details for this website exist.")
-    except TypeError:
-        messagebox.showwarning(title="No Data Entered",
-                               message="Please, enter an account name.")
     else:
-        messagebox.showinfo(title=f"Account info: {account}",
-                            message=f"Username: {username_data}\n"
-                                    f"Password: {password_data}")
+        if account in data:
+            username_data = data[account]["email"]
+            password_data = data[account]["password"]
+            messagebox.showinfo(title=f"Account info: {account}",
+                                message=f"Username: {username_data}\n"
+                                        f"Password: {password_data}")
+        else:
+            messagebox.showwarning(title="No Data Found",
+                               message="No details for this website exist.")
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
